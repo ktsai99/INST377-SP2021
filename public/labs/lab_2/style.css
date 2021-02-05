@@ -14,13 +14,13 @@ body {
   width: 70%;
   min-width: 800px;
   margin: 0 auto;
-  background-color: #6091C3;
+  background-color: #2e567e;
 }
 
 /* || typography */
 
 h1, h2, h3 {
-  font-family: 'Cinzel Decorative', cursive;
+  font-family: 'Comfortaa', cursive;
   color: #2a2a2a;
 }
 
@@ -33,13 +33,13 @@ h1 {
   font-size: 4rem;
   text-align: center;
   text-shadow: 2px 2px 10px black;
-  font-weight: 100;
+  font-weight: 400;
 }
 
 h2 {
   font-size: 5rem;
   text-align: center;
-  font-weight: 800;
+  font-weight: 600;
 }
 
 h3 {
