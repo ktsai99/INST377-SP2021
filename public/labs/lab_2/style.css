@@ -130,8 +130,8 @@ nav a, nav span {
 }
 
 .aside img {
-  width: 639px;
-  height: 639px;
+  width: 100%;
+  height: auto;
 }
 
 .footer {
