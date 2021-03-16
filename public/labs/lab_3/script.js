@@ -1,7 +1,7 @@
 let i = 1;
     for(let li of carousel.querySelectorAll('li')) {
       li.style.position = 'relative';
-      li.insertAdjacentHTML('beforeend', <span style="position:absolute;left:0;top:0">${i}</span>);
+      li.insertAdjacentHTML('beforeend', '<span style="position:absolute;left:0;top:0">${i}</span>');
       i++;
     }
 
@@ -18,7 +18,7 @@ let i = 1;
       // shift left
       position += width * count;
       // can't move to the left too much, end of images
-      position = Math.min(position, 0)
+      position = Math.min(position, 0);
       list.style.marginLeft = position + 'px';
     };
 

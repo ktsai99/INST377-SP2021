@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Kevin Tsai's Lab 4</title>
+        <link href="styles.css" rel="stylesheet"/>
+      </head>
+
+    <body>
+        <div class='header'>
+            <h1>Kevin Tsai's Lab 4</h1>
+        </div>
+        <form action="/api" id="form" method="post">
+            <ul class="flex-outer">
+            <li>
+                <label for="fname">First Name</label>
+                <input type="text" name="fname" id="fname" placeholder="Enter your first name here">    
+            </li>
+            <li>
+                <label for="lname">Last Name</label>
+                <input type="text" name="lname" id="lname" placeholder="Enter your last name here">
+            </li>
+            <li>
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" placeholder="Enter your email here">
+            </li>
+            <li>
+                <label for="phone">Phone</label>
+                <input type="tel" name="phone" id="phone" placeholder="Enter your phone here">
+            </li>
+            <li>
+                <label for="message">Message</label>
+                <textarea rows="6" name="message" id="message" rows="5" cols="33" placeholder="Enter your message here">This is a message</textarea>
+            </li>
+            <li>
+                <p>Age</p>
+                <ul class="flex-inner">
+                    <li>
+                        <label for="twenty-to-twentynine">18-35</label>
+                        <input type="checkbox" name="checkbox" id="twenty-to-twentynine">
+                      </li>
+                      <li>
+                        <label for="thirty-to-thirtynine">35-50</label>
+                        <input type="checkbox" name="checkbox" id="thirty-to-thirtynine">
+                      </li>
+                </ul>
+            </li>
+            <li>
+                <button type="submit" name="button" id="formbutton" formmethod="POST">Submit Form</button>
+
+            </li>
+            </ul>
+        </form>
+    </body>
+</html>
