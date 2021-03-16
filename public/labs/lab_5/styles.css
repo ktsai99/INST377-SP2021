@@ -1,0 +1,15 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat:900|Raleway:400,400i,700,700i);
+
+#mapid { 
+    height: 450px; 
+    width: 450px;
+    margin:100px;
+}
+
+search-form {
+    display:inline-flex;
+}
+
+.columns {
+    margin-left: 5rem;
+}
