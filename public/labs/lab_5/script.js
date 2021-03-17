@@ -2,7 +2,10 @@
 
 function mapInit() {
   // follow the Leaflet Getting Started tutorial here
-  var mymap = L.map("mapid").setView([38.980415024545614, -76.94161850225373], 13);
+  var mymap = L.map("mapid").setView(
+    [38.980415024545614, -76.94161850225373],
+    13
+  );
   L.tileLayer(
     "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
     {
@@ -22,12 +25,20 @@ function mapInit() {
 async function dataHandler(mapObjectFromFunction) {
   // use your assignment 1 data handling code here
   // and target mapObjectFromFunction to attach markers
+  const form = document.querySelector("#search-form");
+  const searchInput = document.querySelector("#search");
+  const suggestions = document.querySelector(".suggestions");
+
+  const request = await fetch("/api");
+  const cities = await request.json();
 
   function findMatches(wordToMatch, cities) {
     return cities.filter((place) => {
       const regex = new RegExp(wordToMatch, "gi");
       return (
-        place.zip.match(regex)
+        place.zip.match(regex) ||
+        place.name.match(regex) ||
+        place.type.match(regex)
       );
     });
   }
@@ -54,25 +65,33 @@ async function dataHandler(mapObjectFromFunction) {
 
     suggestions.innerHTML = html;
   }
-  
-  const form = document.querySelector("#search-form");
-  const searchInput = document.querySelector("#search");
 
-  const request = await fetch('/api', { method: "get" });
-  const cities = await request.json();
+  function displayGeo(event, mapObjectFromFunction) {
+    //Query matches
+    const geoMatch = findMatches(event.target.value, cities);
 
-  function handleForm(event) { event.preventDefault(); } 
+    //Create Feature Group
+    var featLoc = L.featureGroup();
+    featLoc.addTo(mapObjectFromFunction);
 
-  searchInput.addEventListener('submit', async (event) => {
+    geoMatch.forEach((item) => {
+      longLat = item.geocoded_column_1.coordinates;
+      //console.log(longLat[0],longLat[1]);
+      L.marker([longLat[1], longLat[0]]).addTo(featLoc);
+    });
+    //mapObjectFromFunction.fitBounds(featLoc.getBounds());
+  }
+
+  form.addEventListener("keyup", async (event) => {
     event.preventDefault();
-    console.log('Form submitted');
-  })
-  
+    displayMatches(event);
+    //displayGeo(event, mapObjectFromFunction);
+  });
 }
 
 async function windowActions() {
   const map = mapInit();
-  //await dataHandler(map);
+  await dataHandler(map);
 }
 
 window.onload = windowActions;
