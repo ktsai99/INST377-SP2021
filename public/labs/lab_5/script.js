@@ -32,60 +32,38 @@ async function dataHandler(mapObjectFromFunction) {
   const request = await fetch("/api");
   const cities = await request.json();
 
-  function findMatches(wordToMatch, cities) {
-    return cities.filter((place) => {
-      const regex = new RegExp(wordToMatch, "gi");
-      return (
-        place.zip.match(regex) ||
-        place.name.match(regex) ||
-        place.type.match(regex)
-      );
-    });
-  }
-
-  function displayMatches(event) {
-    // Workaround to prevent empty search bar from displaying the entire array
-    if (event.target.value === "") {
-      suggestions.innerHTML = "";
-      return;
-    }
-
-    const matchArray = findMatches(event.target.value, cities);
-    const html = matchArray
-      .map((place) => {
-        return `
-                <li>
-                    <ul>
-                        <li class="address"> ${place.category} — ${place.name} ${place.address_line_1} ${place.zip}</li>
-                    </ul>
-                </li>
-            `;
-      })
-      .join("");
-
-    suggestions.innerHTML = html;
-  }
-
-  function displayGeo(event, mapObjectFromFunction) {
-    //Query matches
-    const geoMatch = findMatches(event.target.value, cities);
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    //console.log(searchInput.value);
+    //console.log(cities);
+    const filtered = cities.filter(
+      (item) => item.zip.includes(searchInput.value) && item.geocoded_column_1
+    ).slice(0,5);
+    //console.table(filtered);
 
     //Create Feature Group
     var featLoc = L.featureGroup();
     featLoc.addTo(mapObjectFromFunction);
 
-    geoMatch.forEach((item) => {
+    filtered.forEach((item) => {
       longLat = item.geocoded_column_1.coordinates;
-      //console.log(longLat[0],longLat[1]);
+      //console.log(longLat[0], longLat[1]);
       L.marker([longLat[1], longLat[0]]).addTo(featLoc);
-    });
-    //mapObjectFromFunction.fitBounds(featLoc.getBounds());
-  }
 
-  form.addEventListener("keyup", async (event) => {
-    event.preventDefault();
-    displayMatches(event);
-    //displayGeo(event, mapObjectFromFunction);
+      const appendCities = document.createElement("li");
+      appendCities.classList.add("block");
+      appendCities.classList.add("list-item");
+      appendCities.innerHTML = `
+       <li>
+           <ul>
+               <li class="address"> ${item.category} — ${item.name} ${item.address_line_1} ${item.zip}</li>
+           </ul>
+       </li>
+   `;
+      suggestions.append(appendCities);
+    });
+    mapObjectFromFunction.fitBounds(featLoc.getBounds(), { padding: [20, 20] });
+    console.log(suggestions);
   });
 }
 

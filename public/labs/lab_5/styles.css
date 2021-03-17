@@ -3,7 +3,7 @@
 ul.suggestions > li,
 ul.suggestions > li::before {
   box-shadow: 0.25rem 0.25rem 0.6rem rgba(0, 0, 0, 0.05),
-    0 0.5rem 1.125rem rgba(75, 0, 0, 0.05);
+    0 0.5rem 1.125rem rgba(255, 255, 255, 0.05);
 }
 
 h1 {
@@ -61,10 +61,10 @@ ul.suggestions > li::after {
   width: 3rem;
 }
 
-#mapid { 
-    height: 450px; 
-    width: 450px;
-    margin:100px;
+#mapid{ 
+    height: 550px;
+    position:sticky;
+    width: auto;
 }
 
 .search-form {
@@ -72,5 +72,7 @@ ul.suggestions > li::after {
 }
 
 .columns {
-    margin-left: 5rem;
+    margin-left: 0rem;
 }
+
+/*Gradient list design taken from https://codemyui.com/css-only-numbered-list-with-multi-gradient-color/*/
