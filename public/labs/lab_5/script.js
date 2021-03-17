@@ -1,4 +1,7 @@
 //const { data } = require("cypress/");
+function removeAll(){
+  document.getElementById("suggestions").innerHTML = "";
+}
 
 function mapInit() {
   // follow the Leaflet Getting Started tutorial here
@@ -65,6 +68,16 @@ async function dataHandler(mapObjectFromFunction) {
     mapObjectFromFunction.fitBounds(featLoc.getBounds(), { padding: [20, 20] });
     console.log(suggestions);
   });
+  window.addEventListener('keydown', async (event) =>
+{
+    if(searchInput.value.length == 1 &&  event.keyCode == '8' )
+    {
+        event.preventDefault();  // prevent backspace from going to browser
+                          // history
+        // add reload code
+        location.reload();
+    }
+}, false);
 }
 
 async function windowActions() {
